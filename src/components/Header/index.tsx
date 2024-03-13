@@ -1,37 +1,80 @@
+import React, { useEffect, useState } from "react";
 import { AiFillApple, AiOutlineSearch, AiOutlineShopping } from "react-icons/ai";
+import { IconBaseProps } from "react-icons";
+import { Box, Fade } from "@mui/material";
+
+import { Text } from "../Text";
+import { GetFirebase } from "../../utils/util";
+import theme from "../../theme/theme";
 
 import * as Styled from "./styled";
-import { Text } from "../Text";
-import { useState } from "react";
 
+interface ModalBoxProps {
+    icon: React.ReactElement<IconBaseProps> | string;
+}
+interface Item {
+    items: [];
+    name: string;
+}
 
 export default function Header() {
+    const [data, setData] = useState<Item[]>([])
     const [hover, setHover] = useState<boolean>(false)
-    console.log(hover);
-    
+    const [selectHover, setSelectHover] = useState<string>('')
+
+    useEffect(() => {
+        GetFirebase('Header').then((result) => {
+            setData(JSON.parse(result));
+        });
+    }, []);
+
+
+    const ModalBox = () => {
+        let filtred: Item[] = []
+        if (selectHover) {
+            filtred = data.filter(item => item.name == selectHover)
+            return (
+                <Box>
+                    <Fade in={hover} timeout={1000}>
+                        <Styled.SubList>
+                            <Styled.ListWitch>
+                                {filtred[0]?.items.map((elm: string, index: number) =>
+                                    <Text key={index} text={elm} color="secondary" size="xxnano" />
+                                )}
+                            </Styled.ListWitch>
+                        </Styled.SubList>
+                    </Fade>
+                </Box>
+            )
+        }
+    }
+    const Items: React.FC<ModalBoxProps> = ({ icon }) => {
+        if (typeof icon === 'string') {
+            return (
+                <Styled.ContainerItems onMouseEnter={() => { setHover(true); setSelectHover(icon) }} >
+                    {icon}
+                </Styled.ContainerItems>
+            );
+        }
+        return icon;
+    };
     return (
-        <>
-            <Styled.Container hover={hover}>
-                <Styled.SubContainer>
-                    <Styled.ListContainer onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-                        <AiFillApple color="white" size={17} />
-                    </Styled.ListContainer>
-                    <Styled.ListContainer><Text text="Loja" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="Mac" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="iPad" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="Watch" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="AirPods" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="TV e Casa" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="Entretenimento" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="Acessórios" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><Text text="Suporte" color="secondary" size="xxnano" /></Styled.ListContainer>
-                    <Styled.ListContainer><AiOutlineSearch color="white" size={17} /></Styled.ListContainer>
-                    <Styled.ListContainer><AiOutlineShopping color="white" size={17} /></Styled.ListContainer>
-                </Styled.SubContainer>
+        <Styled.Main onMouseLeave={() => setHover(false)}>
+            <Styled.Container hover={hover ? 1 : 0}>
+                <Styled.ContainerSpace>
+                    <Styled.ContainerIcon>
+                        <Items icon={<AiFillApple color={theme.colors.primary} size={17} />} />
+                    </Styled.ContainerIcon>
+                    {data && data.map((elm: any, index: number) => <Items icon={elm.name} key={index} />)}
+                    <Styled.ContainerIcon>
+                        <Items icon={<AiOutlineSearch color={theme.colors.primary} size={17} />} />
+                    </Styled.ContainerIcon>
+                    <Styled.ContainerIcon>
+                        <Items icon={<AiOutlineShopping color={theme.colors.primary} size={17} />} />
+                    </Styled.ContainerIcon>
+                </Styled.ContainerSpace>
             </Styled.Container>
-            {hover && <Styled.SubList>
-                <Text text="Teste" color="secondary" size="xxnano" />
-                </Styled.SubList>}
-        </>
+            <ModalBox />
+        </Styled.Main>
     )
 }
