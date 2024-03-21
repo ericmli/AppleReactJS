@@ -28,18 +28,19 @@ export default function Header() {
         });
     }, []);
 
-
     const ModalBox = () => {
         let filtred: Item[] = []
         if (selectHover) {
             filtred = data.filter(item => item.name == selectHover)
             return (
                 <Box>
-                    <Fade in={hover} timeout={1000}>
+                    <Fade in={hover} timeout={250} >
                         <Styled.SubList>
                             <Styled.ListWitch>
                                 {filtred[0]?.items.map((elm: string, index: number) =>
-                                    <Text key={index} text={elm} color="secondary" size="xxnano" />
+                                    <Styled.ItemsHeader key={index}>
+                                        <Text text={elm} color="primary" />
+                                    </Styled.ItemsHeader>
                                 )}
                             </Styled.ListWitch>
                         </Styled.SubList>
@@ -48,10 +49,11 @@ export default function Header() {
             )
         }
     }
+
     const Items: React.FC<ModalBoxProps> = ({ icon }) => {
         if (typeof icon === 'string') {
             return (
-                <Styled.ContainerItems onMouseEnter={() => { setHover(true); setSelectHover(icon) }} >
+                <Styled.ContainerItems onMouseEnter={() => { setHover(true); setSelectHover(icon); }} >
                     {icon}
                 </Styled.ContainerItems>
             );

@@ -3,76 +3,86 @@ import * as Styled from './styled';
 export interface TitleProps {
   text: string;
   align?: 'center' | 'right' | 'left';
+  bold?: '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | 'bold' ;
   size?:
-    | 'nano'
-    | 'xnano'
-    | 'xxnano'
-    | 'small'
-    | 'xsmall'
-    | 'medium'
-    | 'large'
-    | 'xlarge'
-    | 'xxlarge'
-    | 'huge'
-    | 'big';
-  marginTop?:
-    | 'nano'
-    | 'xnano'
-    | 'xxnano'
-    | 'small'
-    | 'xsmall'
-    | 'medium'
-    | 'large'
-    | 'xlarge'
-    | 'xxlarge'
-    | 'huge';
-  marginLeft?:
-    | 'nano'
-    | 'xnano'
-    | 'xxnano'
-    | 'small'
-    | 'xsmall'
-    | 'medium'
-    | 'large'
-    | 'xlarge'
-    | 'xxlarge'
-    | 'huge';
-  marginRight?:
-    | 'nano'
-    | 'xnano'
-    | 'xxnano'
-    | 'small'
-    | 'xsmall'
-    | 'medium'
-    | 'large'
-    | 'xlarge'
-    | 'xxlarge'
-    | 'huge';
-  marginBottom?:
-    | 'nano'
-    | 'xnano'
-    | 'xxnano'
-    | 'small'
-    | 'xsmall'
-    | 'medium'
-    | 'large'
-    | 'xlarge'
-    | 'xxlarge'
-    | 'huge';
-  family?: 'light' | 'regular' | 'bold';
+  | 'nano'
+  | 'xnano'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+  | 'huge';
+  padding?:
+  | 'nano'
+  | 'xnano'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+  | 'huge';
+  top?:
+  | 'nano'
+  | 'xnano'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+  | 'huge';
+  left?:
+  | 'nano'
+  | 'xnano'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+  | 'huge';
+  right?:
+  | 'nano'
+  | 'xnano'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+  | 'huge';
+  bottom?:
+  | 'nano'
+  | 'xnano'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xlarge'
+  | 'xxlarge'
+  | 'huge';
+  family?:
+  | 'Poppins'
+  | 'apple'
+  | 'Segoe'
+  | 'Roboto'
+  | 'Oxygen'
+  | 'Ubuntu'
+  | 'Cantarell'
+  | 'Sans'
+  | 'Helvetica'
+  | 'default';
   color?:
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'error'
-    | 'dark'
-    | 'white'
-    | 'grayDark'
-    | 'grayMedium'
-    | 'title'
-    | 'blue'
-    | 'pink'
-    | 'dimGray';
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'error'
+  | 'dark'
+  | 'tertiary'
+  | 'white'
+  | 'grayDark'
+  | 'grayMedium'
+  | 'title'
+  | 'blue'
+  | 'pink'
+  | 'dimGray';
 }
 
 export function Text({ text, ...rest }: TitleProps) {
