@@ -1,7 +1,7 @@
-import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite'
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, query, getDocs, orderBy } from 'firebase/firestore';
 
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyC-ep-YZqCxeedwLAbHWARStZ-zEuDkIQs",
   authDomain: "project-2ee76.firebaseapp.com",
   projectId: "project-2ee76",
@@ -11,21 +11,14 @@ export const firebaseConfig = {
   measurementId: "G-Y2Q126ZDM2"
 };
 
-export const GetFirebase = async (nameList: string) => {
-  async function get() {
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const collec = collection(db, nameList);
-    const getCollec = await getDocs(collec);
-    const list = getCollec.docs.map(doc => doc.data());
+export const GetFirebase = async (nameList: string, orderByField?: string) => {
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const collec = collection(db, nameList);
 
-    return JSON.stringify(list);
-  }
+  let q = orderByField ? query(collec, orderBy(orderByField)) : collection(db, nameList);
 
-  try {
-    return await get();
-  } catch (error) {
-    console.error('Erro ao obter dados do Firebase:', error);
-    throw error;
-  }
+  const getCollec = await getDocs(q);
+  const list = getCollec.docs.map(doc => doc.data());
+  return JSON.stringify(list);
 };

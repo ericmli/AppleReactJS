@@ -82,7 +82,7 @@ export interface ButtonProps {
     | 'title'
     | 'blue'
     | 'pink'
-    | 'dimGray';
+    | 'gray';
   }
   
 

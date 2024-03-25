@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 
-import Header from '../../components/Header'
 import { Text } from '../../components/Text'
 import { Button } from '../../components/Button'
 import bckBlack from '../../assets/background-iphone-black.jpg'
 import bckWhite from '../../assets/background-iphone-white.jpg'
 import { GetFirebase } from "../../utils/util"
-import * as Styled from './styled'
 import { Carousel } from '../../components/Carousel'
+import { Body } from '../../components/Body'
+
+import * as Styled from './styled'
 
 interface PropsImageAnnouncement {
   image: string;
@@ -90,20 +91,20 @@ export function Home() {
 
 
   return (
-    <Styled.Container>
-      <Header />
+    <Body>
       <BackStudy />
       <AnnouncementPhone image={bckBlack} title="iPhone 15 Pro" description="Titânio. Muito robusto. Muito leve. " color />
       <AnnouncementPhone image={bckWhite} title="iPhone 15" description="A câmera é uau. O design é uau." />
       {product && <GridItems data={product} />}
       <Carousel>{tv.map((elm: DataTV, index: number) => {
-        if (elm.show){
-        return (
-          <Styled.ContainerCarousel onClick={() => console.log(index)} key={index}>
-            <Styled.ImageCarousel src={elm.image} />
-          </Styled.ContainerCarousel>
-        )}
+        if (elm.show) {
+          return (
+            <Styled.ContainerCarousel onClick={() => console.log(index)} key={index}>
+              <Styled.ImageCarousel src={elm.image} />
+            </Styled.ContainerCarousel>
+          )
+        }
       })}</Carousel>
-    </Styled.Container>
+    </Body>
   )
 }

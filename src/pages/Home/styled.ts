@@ -5,15 +5,6 @@ interface PropsImageAnnouncement {
   image: string;
 }
 
-export const Container = styled.div`
-  padding: 0;
-  margin: 0;
-  background-color: ${({ theme }) => theme.colors.secondary};
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-`
-
 export const MainBackStudy = styled.div`
   padding-top: 20px;
   background-color: #F5F5F7;

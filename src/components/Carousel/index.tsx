@@ -21,6 +21,7 @@ const StyledSlider = styled(Slider)`
   .slick-active{
     opacity: 1;
   }
+  margin-bottom: 30px;
 `;
 
 export function Carousel({ children }: CarouselProps) {
@@ -38,7 +39,7 @@ export function Carousel({ children }: CarouselProps) {
       <StyledSlider {...settings} >
         {children}
       </StyledSlider>
-      <br />
+
     </>
   );
 }
