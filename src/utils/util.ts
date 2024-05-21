@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, query, getDocs, orderBy } from 'firebase/firestore';
 
@@ -22,3 +23,27 @@ export const GetFirebase = async (nameList: string, orderByField?: string) => {
   const list = getCollec.docs.map(doc => doc.data());
   return JSON.stringify(list);
 };
+
+export const useScreenSize = () => {
+  const [screenSize, setScreenSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const updateScreenSize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', updateScreenSize);
+    return () => {
+      window.removeEventListener('resize', updateScreenSize);
+    };
+  }, []);
+
+  return screenSize;
+};
+

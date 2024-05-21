@@ -62,7 +62,7 @@ export const ContainerGridItems = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: ${({ theme }) => theme.spacings.xxnano};
-
+  
 `
 export const GridItems = styled.div<{ image: string }>`
   width: 49%;
@@ -76,13 +76,17 @@ export const GridItems = styled.div<{ image: string }>`
   align-items: center;
   justify-content: top;
   padding-top: ${({ theme }) => theme.spacings.huge};
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 export const GridButtons = styled.span`
   margin-top: ${({ theme }) => theme.spacings.small};
-  width: 25%;
- display: flex;
- flex-direction: row;
- justify-content: space-evenly;
+  min-width: 176px;
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `
 export const ContainerCarousel = styled.div`
   width: 100%;

@@ -1,10 +1,10 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { AiFillApple, AiOutlineSearch, AiOutlineShopping } from "react-icons/ai";
+import { AiFillApple, AiOutlineSearch, AiOutlineShopping, AiOutlineLeft } from "react-icons/ai";
 import { IconBaseProps } from "react-icons";
 import { Box, Fade } from "@mui/material";
 
 import { Text } from "../Text";
-import { GetFirebase } from "../../utils/util";
+import { GetFirebase, useScreenSize } from "../../utils/util";
 import theme from "../../theme/theme";
 
 import * as Styled from "./styled";
@@ -21,6 +21,7 @@ interface Item {
 }
 
 export function Body({ children }: BodyProps) {
+    const { width } = useScreenSize();
     const [data, setData] = useState<Item[]>([])
     const [footer, setFooter] = useState<Item[]>([])
     const [hover, setHover] = useState<boolean>(false)
@@ -56,6 +57,29 @@ export function Body({ children }: BodyProps) {
             )
         }
     }
+    const ModalDropDown = () => {
+        const [open, setOpen] = useState<boolean>(false)
+        const [selected, setSelected] = useState<Item | undefined>(undefined)
+
+        return (
+            <Styled.ContainerDropDown hover={hover ? 1 : 0}>
+                {open && <AiOutlineLeft style={{ position: 'absolute', left: 15, top: 8, color: 'white' }} size={28}  onClick={() => {setOpen(false); setSelected(undefined)}}/>}
+                {!open ? data.map((elm: Item, index: number) => {
+                    return (
+                        <Styled.ContainerTextDropDown key={index}>
+                            <div onClick={() => { setOpen(!open); setSelected(elm) }}>{elm.name}</div>
+                            {open && <>{selected?.items.map((elm: string) => { return (<p style={{ fontSize: 12 }}>{elm}</p>) })}</>}
+                        </Styled.ContainerTextDropDown>
+                    )
+                }) :
+                    <>
+                        {selected?.items.map((elm: string , index: number) => { return (<Styled.ContainerTextDropDown key={index}>{elm}</Styled.ContainerTextDropDown>) })}
+                    </>
+                }
+
+            </Styled.ContainerDropDown>
+        )
+    }
 
     const Items: React.FC<ModalBoxProps> = ({ icon }) => {
         if (typeof icon === 'string') {
@@ -67,12 +91,11 @@ export function Body({ children }: BodyProps) {
         }
         return icon;
     };
-
     return (
         <Styled.Main>
-            <Styled.MainHeader onMouseLeave={() => setHover(false)}>
+            <Styled.MainHeader onMouseLeave={() => { setHover(false) }}>
                 <Styled.ContainerHeader hover={hover ? 1 : 0}>
-                    <Styled.ContainerSpace>
+                    {width > 1000 ? <Styled.ContainerSpace>
                         <Styled.HeaderAlign>
                             <Styled.ContainerIcon>
                                 <Items icon={<AiFillApple color={theme.colors.primary} size={17} />} />
@@ -85,36 +108,42 @@ export function Body({ children }: BodyProps) {
                                 <Items icon={<AiOutlineShopping color={theme.colors.primary} size={17} />} />
                             </Styled.ContainerIcon>
                         </Styled.HeaderAlign>
-                    </Styled.ContainerSpace>
+                    </Styled.ContainerSpace> :
+                        <Styled.Wrapper onClick={() => setHover(!hover)} hover={hover ? 1 : 0}>
+                            <Styled.Bar />
+                        </Styled.Wrapper>
+                    }
                 </Styled.ContainerHeader>
-                <ModalBox />
+                {width > 1000 ? <ModalBox /> :
+                    <ModalDropDown />
+                }
             </Styled.MainHeader>
             {children}
             <Styled.Footer>
-                <Styled.ContainerSpace>
-                    <Styled.FooterAlign>
-                        {footer && footer.map((elm: Item, index: number) => {
-                            return (
-                                <Styled.TitleFooter key={index}>
-                                    <p style={{ color: '#090909', fontSize: 16, marginBottom: 8 }}>{elm.name}</p>
+                <Styled.FooterAlign>
+                    {footer && footer.map((elm: Item, index: number) => {
+                        return (
+                            <Styled.ContainerDropFooter key={index}>
+                                <Styled.TitleFooter style={{ color: '#090909', fontSize: 16, margin: '8px 0 8px 0' }}>{elm.name}</Styled.TitleFooter>
+                                <div>
                                     {elm.items.map((arr, index) => {
                                         return (
-                                            <p style={{ marginBottom: 8, cursor: 'pointer' }} key={index}>
+                                            <Styled.TitleFooter key={index}>
                                                 {arr}
-                                            </p>
+                                            </Styled.TitleFooter>
                                         )
                                     })}
-                                </Styled.TitleFooter>
-                            )
-                        })}
-                    </Styled.FooterAlign>
-                </Styled.ContainerSpace>
+                                </div>
+                            </Styled.ContainerDropFooter>
+                        )
+                    })}
+                </Styled.FooterAlign>
                 <Styled.Reserved>
-                    <Styled.TitleFooter>
+                    <Styled.TitleReserved>
                         © 2024 Eric Marciano.
                         Este site é uma recriação para fins de estudo e não está associado à Apple Inc.
                         Para informações oficiais, visite o site da <a href="https://www.apple.com/br/" target="_blank" >Apple Brasil</a>.
-                    </Styled.TitleFooter>
+                    </Styled.TitleReserved>
                 </Styled.Reserved>
             </Styled.Footer>
         </Styled.Main>
