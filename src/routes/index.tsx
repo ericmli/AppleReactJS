@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components"
 import theme from "../theme/theme"
 import { Home } from "../pages/Home"
 import { Login } from "../pages/Login"
+import { Products } from "../pages/Products"
 
 export function App() {
   return (
@@ -12,6 +13,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="Login" element={<Login />} />
+          <Route path="Products" element={<Products />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

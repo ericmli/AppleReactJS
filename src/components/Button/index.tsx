@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
 import * as Styled from './styled';
 
 export interface ButtonProps {
+    href?: string;
     text: string;
     align?: 'center' | 'right' | 'left';
     bold?: '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900' | 'bold' ;
@@ -86,10 +88,10 @@ export interface ButtonProps {
   }
   
 
-export function Button({ text, ...rest }: ButtonProps) {
+export function Button({ href, text, ...rest }: ButtonProps) {
     return (
-        <Styled.Container {...rest}>
-            <Styled.Button>{text}</Styled.Button>
-        </Styled.Container>
+        <Link to={href || '#'}>
+            <Styled.Button {...rest}>{text}</Styled.Button>
+        </Link>
     );
 }

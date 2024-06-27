@@ -168,6 +168,10 @@ export const FooterAlign = styled.ul`
   gap: ${({ theme }) => theme.spacings.xxnano};
   display: flex;
   padding: 10px;
+  width: 60%;
+  @media (max-width: 1400px) {
+    width: 90%;
+  }
   @media (max-width: 1000px) {
     display: block;
   }
@@ -180,7 +184,6 @@ export const ContainerDropFooter = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
   gap: 10px;
   @media (max-width: 1000px) {
     display: block;

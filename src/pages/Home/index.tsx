@@ -7,9 +7,6 @@ import { Carousel } from '../../components/Carousel'
 import { Body } from '../../components/Body'
 
 import * as Styled from './styled'
-import { useDispatch } from 'react-redux'
-import { setCart } from '../../redux/cart'
-
 interface PropsImageAnnouncement {
   image: string;
   title: string;
@@ -35,16 +32,21 @@ interface DataTV {
 export function Home() {
   const [product, setProduct] = useState<DataProducts[]>([])
   const [tv, setTV] = useState<DataTV[]>([])
-  const dispatch = useDispatch();
+  // import { useDispatch } from 'react-redux'
+  // import { setCart } from '../../redux/cart'
+  // const dispatch = useDispatch();
+  // onClick={() => dispatch(setCart(elm))}
   useEffect(() => {
     GetFirebase('Products', 'order').then((result) => {
       setProduct(JSON.parse(result));
     });
+  }, []);
+  useEffect(() => {
     GetFirebase('TV').then((result) => {
       setTV(JSON.parse(result));
     });
   }, []);
-
+  
   const BackStudy = () => {
     return (
       <Styled.MainBackStudy>
@@ -53,7 +55,7 @@ export function Home() {
           <Text text="Compre um Mac, e os AirPods entram na turma." color="title" family="Segoe" top="nano" size="large" />
           <Text text="Compre um iPad, e o Apple Pencil não pesa na mochila." color="title" family="Segoe" top="nano" size="large" />
           <Text text="É só até 13 de março" color="tertiary" family="Segoe" top="small" size="medium" />
-          <Button text="Comprar" top="small" bottom="small" />
+          <Button href="/Products" text="Comprar" top="small" bottom="small" />
           <Styled.ContainerImageStudy />
         </Styled.BackStudyContainer>
       </Styled.MainBackStudy>
@@ -67,8 +69,8 @@ export function Home() {
           <Text text={props.title} color={props.color ? "secondary" : "title"} size="huge" family="Segoe" bold="500" align="center" />
           <Text text={props.description} color={props.color ? "secondary" : "title"} size="large" bold="300" />
           <Styled.AnnouncementButton>
-            <Button text="Saiba mais" top="small" bottom="small" />
-            <Button text="Comprar" top="small" bottom="small" />
+            <Button href="/Products" text="Saiba mais" top="small" bottom="small" />
+            <Button href="/Products" text="Comprar" top="small" bottom="small" />
           </Styled.AnnouncementButton>
         </Styled.AnnouncementCenter>
       </Styled.AnnouncementContainer>
@@ -90,8 +92,8 @@ export function Home() {
               <Text text={elm.name} color={elm.black ? 'secondary' : 'title'} size='xxlarge' bold='bold' />
               <Text text={elm.presentation} color={elm.black ? 'secondary' : 'title'} size='large' />
               <Styled.GridButtons>
-                <Button text='Saiba Mais' />
-                <Button text='Comprar' />
+                <Button href="/Products" text='Saiba Mais' />
+                <Button href="/Products" text='Comprar' />
               </Styled.GridButtons>
             </Styled.GridItems>
           )
@@ -102,12 +104,12 @@ export function Home() {
 
   return (
     <Body>
-      {/* <BackStudy /> */}
+      <BackStudy />
       {product && <GridItems data={product} />}
       <Carousel>{tv.map((elm: DataTV, index: number) => {
         if (elm.show) {
           return (
-            <Styled.ContainerCarousel onClick={() => dispatch(setCart(elm))} key={index}>
+            <Styled.ContainerCarousel key={index}>
               <Styled.ImageCarousel src={elm.image} />
             </Styled.ContainerCarousel>
           )

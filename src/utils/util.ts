@@ -17,10 +17,11 @@ export const GetFirebase = async (nameList: string, orderByField?: string) => {
   const db = getFirestore(app);
   const collec = collection(db, nameList);
 
-  let q = orderByField ? query(collec, orderBy(orderByField)) : collection(db, nameList);
+  const q = orderByField ? query(collec, orderBy(orderByField)) : collection(db, nameList);
 
   const getCollec = await getDocs(q);
   const list = getCollec.docs.map(doc => doc.data());
+  
   return JSON.stringify(list);
 };
 

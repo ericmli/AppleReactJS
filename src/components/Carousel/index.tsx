@@ -27,7 +27,7 @@ const StyledSlider = styled(Slider)`
 export function Carousel({ children }: CarouselProps) {
   const settings = {
     infinite: true,
-    slidesToShow: 1.65,
+    slidesToShow: 1.66,
     autoplay: true,
     speed: 1000,
     autoplaySpeed: 8000,
