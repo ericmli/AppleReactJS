@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
-import { Text } from '../../components/Text'
-import { Button } from '../../components/Button'
-import { GetFirebase } from "../../utils/util"
-import { Carousel } from '../../components/Carousel'
-import { Body } from '../../components/Body'
+import { Text } from "../../components/Text";
+import { Button } from "../../components/Button";
+import { GetFirebase } from "../../utils/util";
+import { Carousel } from "../../components/Carousel";
+import { Body } from "../../components/Body";
 
-import * as Styled from './styled'
+import * as Styled from "./styled";
 interface PropsImageAnnouncement {
   image: string;
   title: string;
@@ -14,7 +14,7 @@ interface PropsImageAnnouncement {
   color?: boolean;
 }
 interface PropsProducts {
-  data: DataProducts[]
+  data: DataProducts[];
 }
 interface DataProducts {
   name: string;
@@ -30,91 +30,114 @@ interface DataTV {
 }
 
 export function Home() {
-  const [product, setProduct] = useState<DataProducts[]>([])
-  const [tv, setTV] = useState<DataTV[]>([])
+  const [product, setProduct] = useState<DataProducts[]>([]);
+  const [tv, setTV] = useState<DataTV[]>([]);
   // import { useDispatch } from 'react-redux'
   // import { setCart } from '../../redux/cart'
   // const dispatch = useDispatch();
   // onClick={() => dispatch(setCart(elm))}
   useEffect(() => {
-    GetFirebase('Products', 'order').then((result) => {
+    GetFirebase("Products", "order").then((result) => {
       setProduct(JSON.parse(result));
     });
   }, []);
   useEffect(() => {
-    GetFirebase('TV').then((result) => {
+    GetFirebase("TV").then((result) => {
       setTV(JSON.parse(result));
     });
   }, []);
-  
-  const BackStudy = () => {
-    return (
-      <Styled.MainBackStudy>
-        <Styled.BackStudyContainer>
-          <Text text="Última chance de economizar para a faculdade." color="title" size="huge" family="Segoe" bold="700" align="center" />
-          <Text text="Compre um Mac, e os AirPods entram na turma." color="title" family="Segoe" top="nano" size="large" />
-          <Text text="Compre um iPad, e o Apple Pencil não pesa na mochila." color="title" family="Segoe" top="nano" size="large" />
-          <Text text="É só até 13 de março" color="tertiary" family="Segoe" top="small" size="medium" />
-          <Button href="/Products" text="Comprar" top="small" bottom="small" />
-          <Styled.ContainerImageStudy />
-        </Styled.BackStudyContainer>
-      </Styled.MainBackStudy>
-    )
-  }
 
   const AnnouncementPhone: React.FC<PropsImageAnnouncement> = (props) => {
     return (
       <Styled.AnnouncementContainer image={props.image}>
         <Styled.AnnouncementCenter>
-          <Text text={props.title} color={props.color ? "secondary" : "title"} size="huge" family="Segoe" bold="500" align="center" />
-          <Text text={props.description} color={props.color ? "secondary" : "title"} size="large" bold="300" />
+          <Text
+            text={props.title}
+            color={props.color ? "secondary" : "title"}
+            size="huge"
+            family="Segoe"
+            bold="500"
+            align="center"
+          />
+          <Text
+            text={props.description}
+            color={props.color ? "secondary" : "title"}
+            size="large"
+            bold="300"
+          />
           <Styled.AnnouncementButton>
-            <Button href="/Products" text="Saiba mais" top="small" bottom="small" />
-            <Button href="/Products" text="Comprar" top="small" bottom="small" />
+            <Button
+              href="/Products"
+              text="Saiba mais"
+              top="small"
+              bottom="small"
+            />
+            <Button
+              href="/Products"
+              text="Comprar"
+              top="small"
+              bottom="small"
+            />
           </Styled.AnnouncementButton>
         </Styled.AnnouncementCenter>
       </Styled.AnnouncementContainer>
-    )
-  }
+    );
+  };
 
   const GridItems: React.FC<PropsProducts> = ({ data }) => {
     return (
       <Styled.ContainerGridItems>
-        {Array.isArray(data) && data.map((elm: DataProducts, index: number) => {
-
-          if(index < 2) {
+        {Array.isArray(data) &&
+          data.map((elm: DataProducts, index: number) => {
+            if (index < 2) {
+              return (
+                <AnnouncementPhone
+                  key={index}
+                  image={elm.image}
+                  title={elm.name}
+                  description={elm.presentation}
+                  color={elm.black}
+                />
+              );
+            }
             return (
-              <AnnouncementPhone key={index} image={elm.image} title={elm.name} description={elm.presentation} color={elm.black} />
-            )
-          }
-          return (
-            <Styled.GridItems key={index} image={elm.image}>
-              <Text text={elm.name} color={elm.black ? 'secondary' : 'title'} size='xxlarge' bold='bold' />
-              <Text text={elm.presentation} color={elm.black ? 'secondary' : 'title'} size='large' />
-              <Styled.GridButtons>
-                <Button href="/Products" text='Saiba Mais' />
-                <Button href="/Products" text='Comprar' />
-              </Styled.GridButtons>
-            </Styled.GridItems>
-          )
-        })}
+              <Styled.GridItems key={index} image={elm.image}>
+                <Text
+                  text={elm.name}
+                  color={elm.black ? "secondary" : "title"}
+                  size="xxlarge"
+                  bold="bold"
+                />
+                <Text
+                  text={elm.presentation}
+                  color={elm.black ? "secondary" : "title"}
+                  size="large"
+                />
+                <Styled.GridButtons>
+                  <Button href="/Products" text="Saiba Mais" />
+                  <Button href="/Products" text="Comprar" />
+                </Styled.GridButtons>
+              </Styled.GridItems>
+            );
+          })}
       </Styled.ContainerGridItems>
-    )
-  }
+    );
+  };
 
   return (
     <Body>
-      <BackStudy />
       {product && <GridItems data={product} />}
-      <Carousel>{tv.map((elm: DataTV, index: number) => {
-        if (elm.show) {
-          return (
-            <Styled.ContainerCarousel key={index}>
-              <Styled.ImageCarousel src={elm.image} />
-            </Styled.ContainerCarousel>
-          )
-        }
-      })}</Carousel>
+      <Carousel>
+        {tv.map((elm: DataTV, index: number) => {
+          if (elm.show) {
+            return (
+              <Styled.ContainerCarousel key={index}>
+                <Styled.ImageCarousel src={elm.image} />
+              </Styled.ContainerCarousel>
+            );
+          }
+        })}
+      </Carousel>
     </Body>
-  )
+  );
 }

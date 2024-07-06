@@ -1,16 +1,8 @@
 import { useState, useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, query, getDocs, orderBy } from 'firebase/firestore';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC-ep-YZqCxeedwLAbHWARStZ-zEuDkIQs",
-  authDomain: "project-2ee76.firebaseapp.com",
-  projectId: "project-2ee76",
-  storageBucket: "project-2ee76.appspot.com",
-  messagingSenderId: "56296469918",
-  appId: "1:56296469918:web:66b94dde89290f257c528f",
-  measurementId: "G-Y2Q126ZDM2"
-};
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from './apiKeyFirebase';
 
 export const GetFirebase = async (nameList: string, orderByField?: string) => {
   const app = initializeApp(firebaseConfig);

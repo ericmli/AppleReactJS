@@ -24,6 +24,11 @@ export const MainHeader = styled.div`
   width: 100%;
   z-index: 9999;
 `;
+export const MainHeaderSpacing = styled.div`
+  height: 48px;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.dark};
+`;
 export const ContainerHeader = styled.div<PropsHeader>`
   width: 100%;
   height: 5vh;
@@ -38,7 +43,7 @@ export const ContainerHeader = styled.div<PropsHeader>`
   }
 `;
 export const ContainerSpace = styled.div`
-  width: 60%;
+  width: 100%;
   display: flex;
   justify-content: center;
   position: relative;
@@ -168,7 +173,6 @@ export const FooterAlign = styled.ul`
   gap: ${({ theme }) => theme.spacings.xxnano};
   display: flex;
   padding: 10px;
-  width: 60%;
   @media (max-width: 1400px) {
     width: 90%;
   }

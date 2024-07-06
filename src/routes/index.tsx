@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { ThemeProvider } from "styled-components"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 
-import theme from "../theme/theme"
-import { Home } from "../pages/Home"
-import { Login } from "../pages/Login"
-import { Products } from "../pages/Products"
+import theme from "../theme/theme";
+import { Home } from "../pages/Home";
+import { Login } from "../pages/Login";
+import { Products } from "../pages/Products";
 
 export function App() {
   return (
@@ -17,5 +17,5 @@ export function App() {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
-  )
+  );
 }
