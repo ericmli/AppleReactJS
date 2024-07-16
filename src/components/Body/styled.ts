@@ -19,28 +19,29 @@ export const Main = styled.div`
 `
 
 //  Header
-export const MainHeader = styled.div`
+export const MainHeader = styled.div<PropsHeader>`
   position: fixed;
   width: 100%;
   z-index: 9999;
+  background-color: ${({ hover }) => hover ? '#000000ff' : '#050507b7'};
+  backdrop-filter: blur(30px);
+   @media (max-width: 1000px) {
+    justify-content: flex-end;
+    background-color: ${({ theme, hover }) => hover ? theme.colors.grayMedium : '#050507b7'};
+  }
 `;
 export const MainHeaderSpacing = styled.div`
   height: 48px;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.dark};
 `;
-export const ContainerHeader = styled.div<PropsHeader>`
+export const ContainerHeader = styled.div`
   width: 100%;
   height: 5vh;
   min-height: 48px;
-  background-color: ${({ hover }) => hover ? '#000000ff' : '#050507b7'};
-  backdrop-filter: blur(30px);
   display: flex;
-  justify-content: center;
-  @media (max-width: 1000px) {
-    justify-content: flex-end;
-    background-color: ${({ theme, hover }) => hover ? theme.colors.grayMedium : '#050507b7'};
-  }
+  justify-content: right;
+
 `;
 export const ContainerSpace = styled.div`
   width: 100%;
@@ -80,18 +81,19 @@ export const ContainerWrapper = styled.div`
   transition: height 0.3s ease;
 `
 export const Wrapper = styled.div<PropsHeader>`
-  position: relative;
+  position: absolute;
+  right: 0;
   width: 50px;
-  height: 100%;
+  
   ${props => props.hover &&
     `::before {
       transform: rotate(-45deg);
-      top: 20px;
+      top: 25px;
       transition: transform 0.3s ease;
     }
     ::after {
       transform: rotate(-140deg);
-      top: 20px;
+      top: 25px;
       transition: transform 0.3s ease;
     }`
   }
@@ -170,21 +172,19 @@ export const Footer = styled.footer`
 `
 export const FooterAlign = styled.ul`
   list-style: none;
-  gap: ${({ theme }) => theme.spacings.xxnano};
+  padding: 0 5vw;
   display: flex;
-  padding: 10px;
-  @media (max-width: 1400px) {
-    width: 90%;
-  }
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-height: 400px;
   @media (max-width: 1000px) {
     display: block;
   }
 `
-export const ContainerDropFooter = styled.div`
+export const ContainerDropFooter = styled.li`
   color: ${({ theme }) => theme.colors.gray};
   font-size: ${({ theme }) => theme.spacings.small};
   border-bottom: 0px solid black;
-  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -202,9 +202,8 @@ export const ContainerDropFooter = styled.div`
 }
 `
 export const TitleFooter = styled.p`
-   display: flex;
   color: ${({ theme }) => theme.colors.gray};
-  font-size: ${({ theme }) => theme.spacings.small};
+  font-size: 12px;
   cursor: pointer;
   &:hover{
     color: ${({ theme }) => theme.colors.dimGray};
@@ -219,7 +218,7 @@ export const Reserved = styled.div`
 `
 export const TitleReserved = styled.p`
   color: ${({ theme }) => theme.colors.gray};
-  font-size: ${({ theme }) => theme.spacings.small};
+  font-size: ${({ theme }) => theme.spacings.xxnano};
   text-align: center;
 
 `

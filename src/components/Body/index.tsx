@@ -139,51 +139,55 @@ export function Body({ children }: BodyProps) {
         onMouseLeave={() => {
           setHover(false);
         }}
+        hover={hover ? 1 : 0}
       >
         <Container>
-        <Styled.ContainerHeader hover={hover ? 1 : 0}>
-          {width > 1000 ? (
-            <Styled.ContainerSpace>
-              <Styled.HeaderAlign>
-                <Styled.ContainerIcon>
-                  <Items
-                    icon={
-                      <AiFillApple color={theme.colors.primary} size={17} />
-                    }
-                  />
-                </Styled.ContainerIcon>
-                {data &&
-                  data.map((elm: Item, index: number) => (
-                    <Items icon={elm.name} key={index} />
-                  ))}
-                <Styled.ContainerIcon>
-                  <Items
-                    icon={
-                      <AiOutlineSearch color={theme.colors.primary} size={17} />
-                    }
-                  />
-                </Styled.ContainerIcon>
-                <Styled.ContainerIcon>
-                  <Items
-                    icon={
-                      <AiOutlineShopping
-                        color={theme.colors.primary}
-                        size={17}
-                      />
-                    }
-                  />
-                </Styled.ContainerIcon>
-              </Styled.HeaderAlign>
-            </Styled.ContainerSpace>
-          ) : (
-            <Styled.Wrapper
-              onClick={() => setHover(!hover)}
-              hover={hover ? 1 : 0}
-            >
-              <Styled.Bar />
-            </Styled.Wrapper>
-          )}
-        </Styled.ContainerHeader>
+          <Styled.ContainerHeader>
+            {width > 1000 ? (
+              <Styled.ContainerSpace>
+                <Styled.HeaderAlign>
+                  <Styled.ContainerIcon>
+                    <Items
+                      icon={
+                        <AiFillApple color={theme.colors.primary} size={17} />
+                      }
+                    />
+                  </Styled.ContainerIcon>
+                  {data &&
+                    data.map((elm: Item, index: number) => (
+                      <Items icon={elm.name} key={index} />
+                    ))}
+                  <Styled.ContainerIcon>
+                    <Items
+                      icon={
+                        <AiOutlineSearch
+                          color={theme.colors.primary}
+                          size={17}
+                        />
+                      }
+                    />
+                  </Styled.ContainerIcon>
+                  <Styled.ContainerIcon>
+                    <Items
+                      icon={
+                        <AiOutlineShopping
+                          color={theme.colors.primary}
+                          size={17}
+                        />
+                      }
+                    />
+                  </Styled.ContainerIcon>
+                </Styled.HeaderAlign>
+              </Styled.ContainerSpace>
+            ) : (
+              <Styled.Wrapper
+                onClick={() => setHover(!hover)}
+                hover={hover ? 1 : 0}
+              >
+                <Styled.Bar />
+              </Styled.Wrapper>
+            )}
+          </Styled.ContainerHeader>
         </Container>
         {width > 1000 ? <ModalBox /> : <ModalDropDown />}
       </Styled.MainHeader>
@@ -199,7 +203,7 @@ export function Body({ children }: BodyProps) {
                     <Styled.TitleFooter
                       style={{
                         color: "#090909",
-                        fontSize: 16,
+                        fontSize: 14,
                         margin: "8px 0 8px 0",
                       }}
                     >

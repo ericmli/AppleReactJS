@@ -5,6 +5,9 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './apiKeyFirebase';
 
 export const GetFirebase = async (nameList: string, orderByField?: string) => {
+  // Get API Key in site firestore
+  // export const firebaseConfig = {apiKey: "",authDomain: "",projectId: "",storageBucket: "",messagingSenderId: "",appId: "",measurementId: ""};
+  
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const collec = collection(db, nameList);
